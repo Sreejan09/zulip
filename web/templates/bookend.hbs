@@ -1,10 +1,6 @@
 {{! Client-side Handlebars template for rendering the trailing bookend. }}
-<div class="{{#if is_trailing_bookend}}trailing_bookend {{/if}}bookend sub-unsub-message">
-    {{#if is_spectator}}
-        <span class="recent-topics-link">
-            <a href="#recent">{{t "Browse recent conversations" }}</a>
-        </span>
-    {{else}}
+{{#if is_trailing_bookend}}
+    <div class="trailing_bookend bookend sub-unsub-message">
         <span class="stream-status">
             {{#if deactivated}}
                 {{t "This channel has been archived." }}
@@ -22,10 +18,17 @@
                 {{/tr}}
             {{else}}
                 {{#tr}}
-                    You are not subscribed to <z-stream-name></z-stream-name>.
+                    You are not subscribed to <z-stream-name></z-stream-name>. <channel-settings-link></channel-settings-link>
                     {{#*inline "z-stream-name"}}{{> stream_privacy . }} {{stream_name}}{{/inline}}
+                    {{#*inline "channel-settings-link"}}  <a class="stream_sub_unsub_button"> {{t 'Subscribe' }}</a>{{/inline}}
                 {{/tr}}
             {{/if}}
         </span>
-    {{/if}}
-</div>
+    </div>
+{{else if is_spectator}}
+    <div class="bookend sub-unsub-message">
+        <span class="recent-topics-link">
+            <a href="#recent">{{t "Browse recent conversations" }}</a>
+        </span>
+    </div>
+{{/if}}
